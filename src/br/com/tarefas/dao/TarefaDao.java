@@ -33,6 +33,23 @@ public class TarefaDao {
 		}
 	}
 	
+	public void alterarTarefa(Tarefa tarefa){
+		String sql = "update tarefa set titulo=?,descricao=? where id=?";
+		
+		try {
+			PreparedStatement pstm = connection.prepareStatement(sql);
+			
+			pstm.setString(1, tarefa.getTitulo());
+			pstm.setString(2, tarefa.getDescricao());
+			pstm.setLong(3, tarefa.getId());
+			pstm.execute();
+			pstm.close();
+			System.out.println("alterado com sucesso!");
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public List<Tarefa> listaTarefas(){
 		String sql = "select * from tarefa";
 		try {
@@ -65,6 +82,29 @@ public class TarefaDao {
 			pstm.execute();
 			pstm.close();
 			System.out.println("removido com sucesso!");
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public Tarefa buscarTarefa(Long id){
+		String sql = "select * from tarefa where id=?";
+		Tarefa tarefa = new Tarefa();
+		try {
+			PreparedStatement pstm = connection.prepareStatement(sql);			
+			pstm.setLong(1, id);
+			ResultSet result = pstm.executeQuery();
+			if(result.next()){
+				Tarefa T = new Tarefa();
+				T.setId(result.getLong("id"));
+				T.setTitulo(result.getString("titulo"));
+				T.setDescricao(result.getString("descricao"));
+				tarefa=T;
+			}
+			
+			pstm.close();
+			result.close();
+			return tarefa;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

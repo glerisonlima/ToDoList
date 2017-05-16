@@ -27,21 +27,33 @@ public class AddTarefa extends HttpServlet{
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/formulario.jsp");
 			dispatcher.forward(req, resp);
 		}else if(acao.equals("salvarTarefa")){
-			
+			String id = req.getParameter("id");
 			String titulo = req.getParameter("titulo");
 			String descricao = req.getParameter("descricao");
-			
-			Tarefa tarefa = new Tarefa();
-			tarefa.setTitulo(titulo);
-			tarefa.setDescricao(descricao);
-			
-			Connection connection = new ConnectionFactory().getConnection();
-			TarefaDao dao = new TarefaDao(connection);
-			dao.addTarefa(tarefa);
-			
-			RequestDispatcher dispatcher = req.getRequestDispatcher("/tarefaAdicionada.jsp");
-			dispatcher.forward(req, resp);
-			
+			if(id.equals("")){
+				Tarefa tarefa = new Tarefa();
+				tarefa.setTitulo(titulo);
+				tarefa.setDescricao(descricao);
+				
+				Connection connection = new ConnectionFactory().getConnection();
+				TarefaDao dao = new TarefaDao(connection);
+				dao.addTarefa(tarefa);
+				
+				RequestDispatcher dispatcher = req.getRequestDispatcher("/tarefaAdicionada.jsp");
+				dispatcher.forward(req, resp);
+			}else{
+				Tarefa tarefa = new Tarefa();
+				tarefa.setId(Long.valueOf(id));
+				tarefa.setTitulo(titulo);
+				tarefa.setDescricao(descricao);
+				
+				Connection connection = new ConnectionFactory().getConnection();
+				TarefaDao dao = new TarefaDao(connection);
+				dao.alterarTarefa(tarefa);
+				
+				RequestDispatcher dispatcher = req.getRequestDispatcher("/tarefaAlterada.jsp");
+				dispatcher.forward(req, resp);
+			}
 		}else if(acao.equals("listaTarefas")){
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/listaDeTarefas.jsp");
 			Connection connection = new ConnectionFactory().getConnection();
@@ -63,7 +75,13 @@ public class AddTarefa extends HttpServlet{
 			req.setAttribute("tarefas", tarefas);
 			dispatcher.forward(req, resp);
 		}else if(acao.equals("alterarTarefa")){
-			
+			String id = req.getParameter("id");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/alterarTarefa.jsp");
+			Connection connection = new ConnectionFactory().getConnection();
+			TarefaDao dao = new TarefaDao(connection);
+			Tarefa tarefas = dao.buscarTarefa(Long.valueOf(id));
+			req.setAttribute("tarefas", tarefas);
+			dispatcher.forward(req, resp);
 		}
 	}
 }

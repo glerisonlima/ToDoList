@@ -32,7 +32,7 @@
 					</td>
 					<td>
 						<form action="sistema" method="post">
-							<input type="hidden" name="logica" value="listaTarefas">
+							<input type="hidden" name="logica" value="alterarTarefa">
 							<input type="hidden" name="id" value="${tarefas.id}">
 							<input type="submit" value="Alterar">
 						</form>

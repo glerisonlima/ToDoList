@@ -4,13 +4,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Tarefa Alterada</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
 </head>
 <body>
-	<h1>Tarefa foi Alterada com sucesso</h1>
-	<form action="sistema" method="post">
-<input type="hidden" name="logica" value="listaTarefas">
-<input type="submit" value="Listar Tarefas">
-</form>
+	<div class="container">
+		<h1>Tarefa foi alterada com sucesso</h1>
+		<form action="sistema" method="post">
+			<input type="hidden" name="logica" value="listaTarefas"> <input
+				type="submit" value="Listar Tarefas">
+		</form>
+	</div>
 </body>
 </html>

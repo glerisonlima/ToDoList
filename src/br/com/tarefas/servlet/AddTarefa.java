@@ -30,7 +30,7 @@ public class AddTarefa extends HttpServlet{
 			String id = req.getParameter("id");
 			String titulo = req.getParameter("titulo");
 			String descricao = req.getParameter("descricao");
-			if(id.equals("")){
+			if(id.equals("") || id.isEmpty() || id == null){
 				Tarefa tarefa = new Tarefa();
 				tarefa.setTitulo(titulo);
 				tarefa.setDescricao(descricao);

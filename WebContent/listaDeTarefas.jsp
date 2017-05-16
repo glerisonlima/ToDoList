@@ -23,6 +23,20 @@
 					<td>${tarefas.id}</td>
 					<td>${tarefas.titulo}</td>
 					<td>${tarefas.descricao}</td>
+					<td>
+						<form action="sistema" method="post">
+							<input type="hidden" name="logica" value="removerTarefa">
+							<input type="hidden" name="id" value="${tarefas.id}">
+							<input type="submit" value="Deletar">
+						</form>
+					</td>
+					<td>
+						<form action="sistema" method="post">
+							<input type="hidden" name="logica" value="listaTarefas">
+							<input type="hidden" name="id" value="${tarefas.id}">
+							<input type="submit" value="Alterar">
+						</form>
+					</td>
 			</c:forEach>				
 		</tbody>
 	</table>

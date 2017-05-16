@@ -12,5 +12,9 @@
 <input type="hidden" name="logica" value="inserirTarefa">
 <input type="submit" value="Inserir Tarefa">
 </form>
+<form action="sistema" method="post">
+<input type="hidden" name="logica" value="listaTarefas">
+<input type="submit" value="Listar Tarefas">
+</form>
 </body>
 </html>

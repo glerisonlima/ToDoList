@@ -2,6 +2,7 @@ package br.com.tarefas.servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,7 +44,26 @@ public class AddTarefa extends HttpServlet{
 			
 		}else if(acao.equals("listaTarefas")){
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/listaDeTarefas.jsp");
+			Connection connection = new ConnectionFactory().getConnection();
+			TarefaDao dao = new TarefaDao(connection);
+			List<Tarefa> tarefas = dao.listaTarefas();
+			req.setAttribute("tarefas", tarefas);
 			dispatcher.forward(req, resp);
+		
+		}else if(acao.equals("removerTarefa")){
+			String id = req.getParameter("id");
+			Connection connection = new ConnectionFactory().getConnection();
+			TarefaDao dao = new TarefaDao(connection);
+			dao.remover(Long.valueOf(id));
+			
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/listaDeTarefas.jsp");
+			Connection connection2 = new ConnectionFactory().getConnection();
+			TarefaDao dao2 = new TarefaDao(connection2);
+			List<Tarefa> tarefas = dao2.listaTarefas();
+			req.setAttribute("tarefas", tarefas);
+			dispatcher.forward(req, resp);
+		}else if(acao.equals("alterarTarefa")){
+			
 		}
 	}
 }
